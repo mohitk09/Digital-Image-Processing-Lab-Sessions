@@ -43,15 +43,15 @@ def hide_text(img, text_file, bits):
         list_of_characters.append(val)
     print(list_of_characters)
 
-    if width*height >= size* 8:
-        # here i and j are used to iterate the list of characters and for image iteration m and n are used
+    if width*height >= (size*8)/bits:
+        # here m and n are used to iterate the list of characters and for image iteration i and j are used
         i = 0
         j = 0
-        print(img[0][0])
         for m in range(0,len(list_of_characters)):
-            for n in range(0,len(list_of_characters[m])):
+            for n in range(0,len(list_of_characters[m]),bits):
                 val = decimal_to_binary(int(img[i][j]))
-                val[len(val)-1] = list_of_characters[m][n]
+                for v in range(0,bits): # v is for iterating the bits level in an image
+                    val[len(val)-1-v] = list_of_characters[m][n+v]
                 img[i][j] = binary_to_decimal(val)
                 if j<len(img[i])-1:
                     j = j+1
