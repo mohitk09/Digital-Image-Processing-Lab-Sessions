@@ -47,19 +47,23 @@ def hide_text(img, text_file, bits):
         i = 0
         j = 0
         num_of_pixels_used = 0 # can also be calculated by size of the text file and number of bit level of an image used
+        count = 0
+        val = decimal_to_binary(int(img[i][j]))
         for m in range(0, len(list_of_characters)):
-            for n in range(0, len(list_of_characters[m]),bits):
-                val = decimal_to_binary(int(img[i][j]))
-                for v in range(0, bits):  # v is for iterating the bits level in an image
-                    val[len(val)-1-v] = list_of_characters[m][n+v]
-                num_of_pixels_used += 1
-                img[i][j] = binary_to_decimal(val)
-                if j < len(img[i])-1:
-                    j += 1
-                else:
-                    j = 0
-                    i += 1
-        plt.imshow(img,cmap=plt.get_cmap('gray'))
+            for n in range(0, len(list_of_characters[m])):
+                val[len(val)-1-count] = list_of_characters[m][n]
+                count += 1
+                if count == bits:
+                    num_of_pixels_used += 1
+                    img[i][j] = binary_to_decimal(val)
+                    if j < len(img[i])-1:
+                        j += 1
+                    else:
+                        j = 0
+                        i += 1
+                    val = decimal_to_binary(int(img[i][j]))
+                    count = 0
+        plt.imshow(img, cmap=plt.get_cmap('gray'))
         plt.show()
         retrieve_text(img,bits,num_of_pixels_used,i)
         print(num_of_pixels_used)
@@ -67,44 +71,54 @@ def hide_text(img, text_file, bits):
         print("File is too big")
 
 
-def retrieve_text(img,bits,number_of_pixels_used,rows):
+def retrieve_text(img, bits, number_of_pixels_used, rows):
     max_pixels = 0
     list_of_characters = []
     l = []
-    for i in range(0,len(img)):
-        if i <= rows:
-            for j in range(0, len(img[i])):
-                val = decimal_to_binary(int(img[i][j]))
-                if max_pixels <= number_of_pixels_used:
+    for i in range(0, rows+1):
+        for j in range(0, len(img[i])):
+            val = decimal_to_binary(int(img[i][j]))
+            if max_pixels <= number_of_pixels_used:
+                for k in range(0, bits):
                     if len(l) < 8:
-                        for k in range(0, bits):
-                            l.append(val[len(val) - 1 - k])
-                            #print(val[len(val)-1-k])
-                        max_pixels += 1
-                    else:
+                        l.append(val[len(val)-1-k])
+                    elif len(l) == 8:
                         list_of_characters.append(l)
                         l = []
-                        max_pixels += 1
-                        for k in range(0, bits):
-                            l.append(val[len(val)-1-k])
-                else:
-                    break
-
+                        l.append(val[len(val)-1-k])
+                max_pixels += 1
+            else:
+                break
+            '''
+            if len(l) < 8:
+                for k in range(0, bits):
+                    l.append(val[len(val) - 1 - k])
+                max_pixels += 1
+            else:
+                list_of_characters.append(l)
+                l = []
+                max_pixels += 1
+                for k in range(0, bits):
+                    l.append(val[len(val)-1-k])
+            '''
+    print("\n")
     s = ''
-    for i in range(0,len(list_of_characters)):
+    for i in range(0, len(list_of_characters)):
+        print(list_of_characters[i])
         val = binary_to_decimal(list_of_characters[i])
-        s = s+chr(val)
+        s += chr(val)
     print("Retrieved text from the Image is")
     print(s)
 
 
 img = io.imread('Pepper.tiff', as_gray=True)
 plt.imshow(img, cmap=plt.get_cmap('gray'))
+plt.show()
 img *= 255
 for i in range(0,len(img)):
     for j in range(0,len(img[i])):
         img[i][j] = int(img[i][j])
 text_file = open('Text_to_hide.txt', 'r')
-hide_text(img, text_file, 4)
+hide_text(img, text_file, 7)
 text_file.close()
 
