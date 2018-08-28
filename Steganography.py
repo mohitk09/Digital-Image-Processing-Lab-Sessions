@@ -119,6 +119,6 @@ for i in range(0,len(img)):
     for j in range(0,len(img[i])):
         img[i][j] = int(img[i][j])
 text_file = open('Text_to_hide.txt', 'r')
-hide_text(img, text_file, 7)
+hide_text(img, text_file, 8)
 text_file.close()
 
