@@ -13,7 +13,7 @@ def converting_int(img):
             img[i][j] = int(img[i][j])
     return img
 
-'''
+
 
 img = io.imread('D:\\Study material\\7th sem\\DIP\\Test_Images\\Lena.tiff', as_gray=True)
 plt.imshow(img, cmap=plt.get_cmap('gray'))
@@ -24,7 +24,7 @@ print(img)
 
 plt.show()
 plt.subplot(2,2,1)
-'''
+
 
 
 def reduce_pixels(img):
@@ -91,7 +91,7 @@ def intensity_resolution(img):
     plt.axis('off')
     plt.show()
 
-'''
+
 new_image = reduce_pixels(img)
 plt.imshow(new_image,cmap=plt.get_cmap('gray'))
 plt.subplot(2,2,2)
@@ -106,7 +106,7 @@ plt.savefig('reduced_image.png')
 plt.show()
 
 intensity_resolution(img)
-'''
+
 
 # counting the number of objects
 Image_obj_count = io.imread('D:\\Study material\\7th sem\\DIP\\Test_Images\\TestIMage.png', as_gray=True)

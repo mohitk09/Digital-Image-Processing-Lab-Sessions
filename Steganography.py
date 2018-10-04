@@ -122,3 +122,4 @@ text_file = open('Text_to_hide.txt', 'r')
 hide_text(img, text_file, 8)
 text_file.close()
 
+

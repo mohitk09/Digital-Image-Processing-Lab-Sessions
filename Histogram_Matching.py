@@ -4,10 +4,10 @@ from skimage import io
 
 def Equalize(img):
     Image_obj_count = img
-    plt.subplot(2, 2, 1)
-    plt.hist(Image_obj_count.ravel(), 256, [0, 256])
-    plt.subplot(2,2,3)
-    plt.imshow(img, cmap=plt.get_cmap('gray'))
+    #plt.subplot(2, 2, 1)
+    #plt.hist(Image_obj_count.ravel(), 256, [0, 256])
+    #plt.subplot(2,2,3)
+    #plt.imshow(img, cmap=plt.get_cmap('gray'))
     pdf = [0 for i in range(0, 256)]
     for i in range(0,len(img)):
         for j in range(0,len(img[i])):
@@ -30,11 +30,11 @@ def Equalize(img):
     for i in range(0,len(img)):
         for j in range(0,len(img[i])):
             img[i][j] = new_grey_levels[int(img[i][j])]
-    plt.subplot(2,2,2)
-    plt.hist(img.ravel(), 256, [0, 256])
-    plt.subplot(2,2,4)
-    plt.imshow(img, cmap=plt.get_cmap('gray'))
-    plt.show()
+    #plt.subplot(2,2,2)
+    #plt.hist(img.ravel(), 256, [0, 256])
+    #plt.subplot(2,2,4)
+    #plt.imshow(img, cmap=plt.get_cmap('gray'))
+    #plt.show()
     return [img, Image_obj_count,new_grey_levels]
     # img is the modified image and Image_obj_count original image
 
@@ -42,13 +42,29 @@ def Equalize(img):
 img_test = io.imread('D:\\Study material\\7th sem\\DIP\\Test_Images\\Lena.tiff', as_gray=True)
 img_test *= 255
 img_input_2, img_input_1, new_grey_levels_input = Equalize(img_test)
+plt.subplot(2, 5, 1)
+plt.hist(img_input_1.ravel(), 256, [0, 256])
+plt.subplot(2,5,6)
+plt.imshow(img_input_1, cmap=plt.get_cmap('gray'))
+plt.subplot(2,5,2)
+plt.hist(img_input_2.ravel(), 256, [0, 256])
+plt.subplot(2,5,7)
+plt.imshow(img_input_2, cmap=plt.get_cmap('gray'))
 # for the specified histogram
-img_test = io.imread('D:\\Study material\\7th sem\\DIP\\Test_Images\\Pepper.tiff', as_gray=True)
+img_test = io.imread('D:\\Study material\\7th sem\\DIP\\Test_Images\\pepper.tiff', as_gray=True)
 img_test *= 255
 img_specified_2,img_specified_1, new_grey_levels_specified = Equalize(img_test)
-#final_image = [[0 for i in range(0, len(img_input_1[0]))] for j in range(0, len(img_input_1))]
-plt.subplot(1,2,1)
+plt.subplot(2, 5, 3)
+plt.hist(img_specified_1.ravel(), 256, [0, 256])
+plt.subplot(2,5,8)
+plt.imshow(img_specified_1, cmap=plt.get_cmap('gray'))
+plt.subplot(2,5,4)
 plt.hist(img_input_2.ravel(), 256, [0, 256])
+plt.subplot(2,5,9)
+plt.imshow(img_specified_2, cmap=plt.get_cmap('gray'))
+#final_image = [[0 for i in range(0, len(img_input_1[0]))] for j in range(0, len(img_input_1))]
+plt.subplot(2,5,5)
+plt.hist(img_specified_2.ravel(), 256, [0, 256])
 for i in range(0,255):
     min = 500
     index = 0
@@ -74,6 +90,6 @@ for i in range(0,len(img_input_2)):
         final_image[i][j]  = img_specified_1[index_i][index_j]
 '''
 
-plt.subplot(1,2,2)
+plt.subplot(2,5,10)
 plt.hist(img_input_2.ravel(), 256, [0, 256])
 plt.show()
