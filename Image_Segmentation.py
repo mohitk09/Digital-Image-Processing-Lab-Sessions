@@ -1,7 +1,7 @@
 from skimage import io
 import matplotlib.pyplot as plt
 import numpy as np
-'''
+
 img = io.imread('D:\\Study material\\7th sem\\DIP\\Test_Images\\test_image.png', as_gray=True)
 img = img*255
 
@@ -27,14 +27,14 @@ for i in range(0,len(pixels)):
         min = pixels[i]
         min_index = i
 
-print(max2)
-print(min)
-print(max2_index)
-print(min_index)
+#print(max2)
+#print(min)
+#print(max2_index)
+#print(min_index)
 new_image = np.empty([len(img),len(img[0])], dtype=np.uint8)
 new_image1 = np.empty([len(img),len(img[0])], dtype=np.uint8)
-for i in range(0,len(new_image)):
-    for j in range(0,len(new_image[i])):
+for i in range(0,len(img)):
+    for j in range(0,len(img[i])):
         new_image[i][j] = 255
         new_image1[i][j]  = 255
 for i in range(0,len(img)):
@@ -45,9 +45,9 @@ for i in range(0,len(img)):
             new_image1[i][j] = 0
 
 plt.subplot(2,1,1)
-plt.imshow(new_image, cmap='gray')
+plt.imshow(new_image, cmap='gray') # for the 1st part
 plt.subplot(2,1,2)
-plt.imshow(new_image1,cmap='gray')
+plt.imshow(new_image1,cmap='gray') # for the 2nd part
 plt.show()
 '''
 def global_thresholding(test_image1):
@@ -114,3 +114,4 @@ plt.imshow(img1,cmap='gray')
 plt.subplot(1,2,2)
 plt.imshow(img2,cmap='gray')
 plt.show()
+'''
